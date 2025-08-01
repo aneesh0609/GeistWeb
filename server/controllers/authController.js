@@ -66,10 +66,17 @@ export const login = async (req,res) =>
 
       if(!user)
       {
-          return res.json({success: false , message: "User not found"});
+          return res.json({success: false , message: "invalid email and password"});
       }
 
-      const token = await jwt.sign({id : user._id} , process.env.JWT_SECRET , {expiresIn : '7d' })
+       const compPassw =   await bcrypt.compare(password , user.password ) ;
+
+      if(!compPassw)
+      {
+        return res.status(400).json({success: false , message : "invalid email and password" }) ;
+      }
+
+      const token = jwt.sign({id : user._id} , process.env.JWT_SECRET , {expiresIn : '7d' })
 
       res.cookie('token' , token , {
         httpOnly : true ,
@@ -81,10 +88,28 @@ export const login = async (req,res) =>
        return res.status(200).json({success: true , message: "login Successfully"});
       
     } catch (error) {
-      
+      return res.status(500).json({success: false , message: `Internal Server Error LG`})
     }
 
 }
 
 
+ export const logout = async (req,res) => 
+ {
 
+  try {
+      res.clearCookie('token',{
+         httpOnly : true ,
+        secure: process.env.NODE_ENV === 'production',
+            sameSite:   process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+      })
+
+
+      return res.json({success: true , message: "Logout Successfully"})
+  } catch (error) {
+     return res.status(500).json({success: false , message: `Internal Server Error Lo`})
+  }
+
+
+
+ }
