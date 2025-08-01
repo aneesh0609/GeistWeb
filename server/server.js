@@ -3,7 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import cookieParser from 'cookie-parser'
-import connectDb from '../Database/database';
+import connectDb from './Database/database.js';
 
 
 const app = express() ;
