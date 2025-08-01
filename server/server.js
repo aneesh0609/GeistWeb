@@ -1,12 +1,14 @@
 
-import express, { json } from 'express'
+import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import cookieParser from 'cookie-parser'
+import connectDb from '../Database/database';
 
 
 const app = express() ;
 
+connectDb();
 
 app.use(express.json()) ;
 app.use(cookieParser()) ;
