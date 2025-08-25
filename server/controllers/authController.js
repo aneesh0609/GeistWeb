@@ -59,14 +59,14 @@ export const login = async (req,res) =>
 
       if(!email || !password)
       {
-        return res.json({success: false , message: "missing fields"});
+        return res.status(400).json({success: false , message: "missing fields"});
       }
 
       const user = await userModel.findOne({email}) ;
 
       if(!user)
       {
-          return res.json({success: false , message: "invalid email and password"});
+          return res.status(400).json({success: false , message: "invalid email and password"});
       }
 
        const compPassw =   await bcrypt.compare(password , user.password ) ;
