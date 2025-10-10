@@ -13,7 +13,7 @@ export const register = async (req,res) =>
 
    if(!name || !email || !password)
    {
-      return res.json({success: false , message : "Missing Fields || fill all the fields"}) ;
+      return res.json({success: false , message : "Missing Fields"}) ;
    }
 
    try {
