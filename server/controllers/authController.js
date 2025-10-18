@@ -22,7 +22,7 @@ export const register = async (req,res) =>
    
    if(existingUser)
    {
-     return res.json({success: false , message: "User Already Exists"}) ;
+     return res.json({success: false , message: "User Already Exists login with familiar account"}) ;
    }
 
    const hashedPassword = await bcrypt.hash(password, 10) ;
